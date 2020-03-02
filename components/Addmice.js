@@ -5,17 +5,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 class Addmice extends Component {
 
-
-
-
   constructor(props) {
     super(props)
     this.state = {
       modalVisible: false,
     }
   }
-
-
 
   setModalVisible(visible) {
     this.setState(
@@ -33,9 +28,6 @@ class Addmice extends Component {
     )
 
   }
-
-
-
 
   render() {
 
