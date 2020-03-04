@@ -40,9 +40,9 @@ class Homepage extends Component {
       'S': 'Selector'
     };
     try {
-      // const response = await Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/getContainerDetails', qr);
+     
       this.setModalVisible(!this.state.modalVisible);
-      // Alert.alert('Something went wrong, try again' , JSON.stringify(response.data));
+     
       this.props.navigation.push(map[qr.type], {qr});  
     } catch (err) {
       Alert.alert('Something went wrong, try again' , JSON.stringify(err));

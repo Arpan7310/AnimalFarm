@@ -16,14 +16,16 @@ constructor(props){
   super(props)
   this.state={
     x:{},
-    y:[]
+    y:[],
+    btype:null
   }
 }
   componentWillMount() {
     Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
      this.setState({
        x:res.data,
-       y:res.data.neonates
+       y:res.data.neonates,
+       btype:res.data.breed
      })
     }).catch(err => {
       Alert.alert('Something went wrong', JSON.stringify(err));
@@ -54,7 +56,7 @@ constructor(props){
 
     </TouchableOpacity>
    
-  <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id']['$oid']})}>
+  <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id']['$oid'],'breedertype':this.state.btype})}>
   <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,elevation:5,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
     <Text style={{color:'grey',fontSize:24,padding:30}} >Report Birth</Text>
     </View>

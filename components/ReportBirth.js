@@ -74,7 +74,7 @@ class ReportBirth extends Component {
           onPress={() => {
 
             try {
-              let data = { 'dob': this.state.date, 'neocount': this.state.neocount, 'colonyId': this.props.navigation.getParam('colonyId'), "breed": "BALB/c", 'breeder_id': this.props.navigation.getParam('breederId')['$oid'] };
+              let data = { 'dob': this.state.date, 'neocount': this.state.neocount, 'colonyId': this.props.navigation.getParam('colonyId'), "breed": this.props.navigation.getParam('breedertype'), 'breeder_id': this.props.navigation.getParam('breederId')['$oid'] };
               Alert.alert('sdf', JSON.stringify(data));
               Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/reportBirth', data).then(res => {
                 {/* Alert.alert('Death count recorded!'); */ }
