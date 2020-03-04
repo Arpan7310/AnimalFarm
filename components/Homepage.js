@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Modal,
+  TouchableNativeFeedback,
   TouchableHighlight,
   Alert,
 } from 'react-native';
@@ -65,7 +66,9 @@ class Homepage extends Component {
         </Modal>
 
         <View style={{flexDirection: 'column', alignItems: 'center'}}>
-          <TouchableHighlight
+          <TouchableOpacity
+
+         
             onPress={() => {
               this.setModalVisible(true);
             }}>
@@ -79,6 +82,7 @@ class Homepage extends Component {
                 margin: 15,
                 justifyContent: 'center',
                 alignItems: 'center',
+
               }}>
               <Image
                 source={require('./qrcode.png')}
@@ -89,7 +93,7 @@ class Homepage extends Component {
                 Scan Container
               </Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
           <View
             style={{
               width: Dimensions.get('window').width - 20,
@@ -97,7 +101,7 @@ class Homepage extends Component {
               borderRadius: 20,
               alignItems: 'center',
               margin: 15,
-              elevation: 5,
+              
               backgroundColor: 'white',
               borderColor: 'grey',
               borderWidth: 0.2,
@@ -114,7 +118,7 @@ class Homepage extends Component {
               borderRadius: 20,
               alignItems: 'center',
               margin: 15,
-              elevation: 5,
+          
               backgroundColor: 'white',
               borderColor: 'grey',
               borderWidth: 0.2,
@@ -123,7 +127,7 @@ class Homepage extends Component {
               Tasks For Today
             </Text>
           </View>
-          <TouchableOpacity
+          <TouchableNativeFeedback
             onPress={() => this.props.navigation.push('Selectbreed')}>
             <View
               style={{
@@ -132,7 +136,7 @@ class Homepage extends Component {
                 borderRadius: 20,
                 alignItems: 'center',
                 margin: 15,
-                elevation: 5,
+         
                 backgroundColor: 'white',
                 borderColor: 'grey',
                 borderWidth: 0.2,
@@ -141,20 +145,22 @@ class Homepage extends Component {
                 Search For Sale
               </Text>
             </View>
-          </TouchableOpacity>
+          </TouchableNativeFeedback>
 
-          <TouchableOpacity onPress={() => this.props.navigation.push('Store')}>
+          <TouchableOpacity   onPress={() => this.props.navigation.push('Store')}>
             <View
+          
               style={{
                 width: Dimensions.get('window').width - 20,
                 height: 100,
                 borderRadius: 20,
                 alignItems: 'center',
                 margin: 15,
-                elevation: 5,
+              
                 backgroundColor: 'white',
                 borderColor: 'grey',
-                borderWidth: 0.2,
+                borderWidth: 0.2
+                
               }}>
               <Text style={{color: 'grey', fontSize: 24, padding: 30}}>
                 Reset Pin

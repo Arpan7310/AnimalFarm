@@ -9,11 +9,15 @@ class WeaningReport extends Component {
         super()
         this.state={
             x:{},
-            modalVisible: false
+            modalVisible: false,
+            type:'a'
+            
         }
     }
 
     componentWillMount() {
+       
+     
         Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/getWeaningData', 
         {
             id: this.props.navigation.getParam('id')
@@ -28,22 +32,22 @@ class WeaningReport extends Component {
 
 
  onSuccess = (e) => {
-        let body = JSON.parse(e.data);
-        if (body.type == 'S' || body.type == 'M') {
-            this.props.navigation.push('Addmice'),
-            this.setModalVisible(!this.state.modalVisible)
-        }
-    }
+    let body=e.data
+    Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type})
+.then((res)=>{
+   if( res.data.isValid ==true)
+   ( this.props.navigation.push('Addmice',{array:res.data.weight}))
+    
+}).catch(err=>{
+    Alert.alert('Could not connect',JSON.stringify(err));
+})
+this.setState({
+    modalVisible:!this.state.modalVisible
+})
+        
 
-    setModalVisible = (visible) => {
-        this.setState(
-            { modalVisible: visible },
-
-        );
-    }
-
-
-    render() {
+}
+   render() {
         return (
             <View>
                 <View style={{ width: Dimensions.get('window').width, height: 180, borderWidth: 0.2, borderColor: 'grey', elevation: 5, marginRight: 15, marginTop: 35 }}>
@@ -51,12 +55,27 @@ class WeaningReport extends Component {
                     <Text style={{ marginLeft: 110, fontSize: 20, color: 'grey' }}>Add To Market</Text>
                     <View style={{ flexDirection: 'row' }}>
 
-                        <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                        <TouchableOpacity onPress={() => this.setState({
+                            
+                      modalVisible:!this.state.modalVisible ,
+                        type:'mmboxId'
+                            })
+                           
+               } >
                             <View style={{ width: 100, height: 100, backgroundColor: '#7189FF', borderRadius: 5, margin: 35 }}>
                                 <Text style={{ color: 'white', margin: 20 }}>{this.state.x.mmboxId} Male</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                        <TouchableOpacity onPress={() => 
+
+                            this.setState({
+                            
+                            modalVisible:!this.state.modalVisible ,
+                              type:'mfboxId'
+                                  })
+
+
+                           } >
                             <View style={{ width: 100, height: 100, backgroundColor: '#FF92F4', borderRadius: 5, margin: 35 }} >
                                 <Text style={{ color: 'white', padding: 20 }}>{this.state.x.mfboxId} Female</Text>
                             </View>
@@ -68,12 +87,22 @@ class WeaningReport extends Component {
                     <Text style={{ marginLeft: 110, fontSize: 20, color: 'grey' }}>Add To Selection</Text>
                     <View style={{ flexDirection: 'row' }}>
 
-                        <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                        <TouchableOpacity onPress={() => this.setState({
+                            
+                            modalVisible:!this.state.modalVisible ,
+                              type:'smboxId'
+                                  })
+                           } >
                             <View style={{ width: 100, height: 100, backgroundColor: '#7189FF', borderRadius: 5, margin: 35 }} >
                                 <Text style={{ color: 'white', margin: 20 }}>{this.state.x.smboxId} Male</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} >
+                        <TouchableOpacity onPress={() => this.setState({
+                            
+                            modalVisible:!this.state.modalVisible ,
+                              type:'sfboxId'
+                                  })
+                           } >
                             <View style={{ width: 100, height: 100, backgroundColor: '#FF92F4', borderRadius: 5, margin: 35 }}>
                                 <Text style={{ color: 'white', padding: 20 }}>{this.state.x.sfboxId} Female</Text>
                             </View>
@@ -87,7 +116,9 @@ class WeaningReport extends Component {
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
                         Alert.alert('Modal has been closed.'),
-                            this.setModalVisible(!this.state.modalVisible)
+                            this.setState({
+                                modalVisible:!this.state.modalVisible
+                            })
                     }}>
 
                     <QRCodeScanner

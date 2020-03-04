@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState } from 'react-native'
+import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState ,Image} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Addmice extends Component {
@@ -10,15 +10,17 @@ class Addmice extends Component {
     this.state = {
       modalVisible: false,
       x:null,
-      array:[]
-     
+      array:[],
+      y:null,
+    
     }
   }
 
   setModalVisible(visible) {
     this.setState(
       {
-        modalVisible: visible
+        modalVisible: visible,
+  
       }
     );
   }
@@ -26,9 +28,26 @@ class Addmice extends Component {
   handleSubmit = () => {
     
       this.setState({
-        array: this.state.array.concat(this.state.x)
+        array: this.state.array.concat(this.state.x),
+        y:this.state.array.length +1
       })
     
+
+  }
+
+
+
+  delete =(x) => {
+
+
+  let array=this.state.array.filter((item)=>{
+  return item.id!==x})
+this.setState({
+  array:array,
+  y:this.state.array.length -1
+})
+
+Alert.alert("item deleted")
 
   }
 
@@ -40,9 +59,16 @@ class Addmice extends Component {
           <TouchableOpacity onPress={() =>
             this.setModalVisible(true)}
           >
-            <View style={{ width: Dimensions.get('window').width - 20, height: 150, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ flex: 4, marginLeft: 30, color: 'white', fontSize: 24 }}>Add Mice</Text>
+            <View style={{ width: Dimensions.get('window').width - 20, height: 150, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{flexDirection:'row',alignItems:'center'}}>
+              <Image source={require('./assets/add.png')} style={{marginRight:15}} />
+              <Text style={{  color: 'white', fontSize: 24}} >Add Mice</Text>
+             
+              </View>
+              
+             <Text style={{  color: 'white', fontSize: 24 }}>Total Count {this.state.y}</Text>
             </View>
+           
           </TouchableOpacity>
 
           <Modal
@@ -67,16 +93,22 @@ class Addmice extends Component {
               <View
                 style={{
                   width: 300,
-                  height: 300,
+                  height: 400,
                   backgroundColor: 'white',
                   borderRadius: 10,
                   flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
                 }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                  <TextInput placeholder="enter weight " onChangeText={(e) => this.setState({
-                    x: e
+                  <Text style={{color:'grey',marginBottom:50,marginTop:20}}> Please Enter Weight Below</Text>
+                  <View style={{flexDirection:'row' ,justifyContent:'space-between'}} >
+                  
+                  <Image source={require('./assets/weight.png')} />
+                  <TextInput placeholder="enter weight here " onChangeText={(e) => this.setState({
+                    x: {value:e,id:this.state.array.length}
                   })
                   } />
+                  </View>
+                 
                 </View>
 
                 <TouchableOpacity
@@ -99,9 +131,17 @@ class Addmice extends Component {
          
          {this.state.array.map((x)=>{
         return(
-             <Text>
-            {x}
-             </Text>
+          <View style={{flexDirection:'row', alignItems:'center',justifyContent:'space-evenly',borderWidth:0.5,borderRadius:15,margin:10}}>
+            <Image source={require('./assets/mice.png')}  /> 
+          <Text >
+            {x.value}
+          </Text>
+          <TouchableOpacity onPress={()=>this.delete(x.id)}>
+          <Image source={require('./assets/delete.png') }  /> 
+          </TouchableOpacity>
+          
+          </View>
+            
         )
          })}
           <TouchableOpacity onPress={ ()=>
