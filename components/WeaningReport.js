@@ -32,7 +32,7 @@ class WeaningReport extends Component {
 
 
  onSuccess = (e) => {
-    let body=e.data
+    let body=JSON.parse(e.data)
     Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type})
 .then((res)=>{
    if( res.data.isValid ==true)
