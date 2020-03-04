@@ -6,9 +6,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 class Addmice extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       modalVisible: false,
+      x:null,
+      array:[]
+     
     }
   }
 
@@ -21,11 +24,11 @@ class Addmice extends Component {
   }
 
   handleSubmit = () => {
-    return (
+    
       this.setState({
         array: this.state.array.concat(this.state.x)
       })
-    )
+    
 
   }
 
@@ -48,7 +51,8 @@ class Addmice extends Component {
             visible={this.state.modalVisible}
             presentationStyle={formatSheet}
             onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
+              Alert.alert('Modal has been closed.'),
+              this.setModalVisible(!this.state.modalVisible)
             }}>
             <View
               style={{
@@ -75,7 +79,7 @@ class Addmice extends Component {
                   } />
                 </View>
 
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={(e) => {
 
                     this.setModalVisible(!this.state.modalVisible),
@@ -86,12 +90,21 @@ class Addmice extends Component {
                   <View style={{ width: 250, height: 50, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, marginTop: 80, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white' }}>Add</Text>
                   </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
 
-          <TouchableOpacity onPress={
+      
+         
+         {this.state.array.map((x)=>{
+        return(
+             <Text>
+            {x}
+             </Text>
+        )
+         })}
+          <TouchableOpacity onPress={ ()=>
             this.props.navigation.pop()}>
             <View style={{ width: Dimensions.get('window').width - 20, height: 50, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
               <Text style={{ flex: 4, marginLeft: 30, color: 'white', fontSize: 24 }}>DONE</Text>

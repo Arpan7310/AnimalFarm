@@ -27,11 +27,11 @@ class WeaningReport extends Component {
 }
 
 
-
-    onSuccess = (e) => {
+ onSuccess = (e) => {
         let body = JSON.parse(e.data);
         if (body.type == 'S' || body.type == 'M') {
-            this.props.navigation.push('Addmice');
+            this.props.navigation.push('Addmice'),
+            this.setModalVisible(!this.state.modalVisible)
         }
     }
 
