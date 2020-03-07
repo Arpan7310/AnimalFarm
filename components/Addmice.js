@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState ,Image} from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
+import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState ,Image,ScrollView} from 'react-native'
+
 
 class Addmice extends Component {
 
@@ -53,10 +53,12 @@ this.setState({
   render() {
 
     return (
-      <ScrollView>
+     
         <View>
           <TouchableOpacity onPress={() =>
             this.setModalVisible(true)}
+
+            style={{position:'absolute'}}
           >
             <View style={{ width: Dimensions.get('window').width - 20, height: 150, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, margin: 10, justifyContent: 'center', alignItems: 'center' }}>
               <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -127,7 +129,7 @@ this.setState({
           </Modal>
 
       
-         
+          <ScrollView style={{marginBottom:70,marginTop:170}}>
          {this.state.array.map((x)=>{
         return(
           <View style={{flexDirection:'row', alignItems:'center',justifyContent:'space-evenly',borderWidth:0.5,borderRadius:15,margin:10}}>
@@ -148,14 +150,18 @@ this.setState({
             
         )
          })}
+         </ScrollView>
           <TouchableOpacity onPress={ ()=>
-            this.props.navigation.pop()}>
-            <View style={{ width: Dimensions.get('window').width - 20, height: 50, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ flex: 4, marginLeft: 30, color: 'white', fontSize: 24 }}>DONE</Text>
+            this.props.navigation.pop()
+            }
+            
+            style={{position:"absolute" ,marginTop:480}}>
+            <View style={{ width: Dimensions.get('window').width - 20, height: 50, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 10, justifyContent: 'center', alignItems: 'center' ,}}>
+              <Text style={{ flex: 4, paddingLeft:133, color: 'white', fontSize: 24 }}>DONE</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+     
     )
   }
 }
