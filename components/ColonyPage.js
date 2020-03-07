@@ -1,5 +1,5 @@
 import React ,{Component} from 'react'
-import {View,Text,Dimensions,ScrollView,Alert}   from 'react-native'
+import {View,Text,Dimensions,ScrollView,Alert,ActivityIndicator}   from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Axios from 'axios';
 
@@ -21,8 +21,10 @@ constructor(props){
   }
 }
   componentWillMount() {
+
     Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
-     this.setState({
+
+   this.setState({
        x:res.data,
        y:res.data.neonates,
        btype:res.data.breed

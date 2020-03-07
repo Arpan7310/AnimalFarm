@@ -47,7 +47,6 @@ this.setState({
   y:this.state.array.length -1
 })
 
-Alert.alert("item deleted")
 
   }
 
@@ -136,7 +135,12 @@ Alert.alert("item deleted")
           <Text >
             {x.value}
           </Text>
-          <TouchableOpacity onPress={()=>this.delete(x.id)}>
+          <TouchableOpacity onPress={()=>Alert.alert(
+            'Are you Sure You Want To Delete ?',
+             '',
+            [ { text: 'Cancel'},
+             {text: 'OK', onPress: () => this.delete(x.id)} ]
+               )}>
           <Image source={require('./assets/delete.png') }  /> 
           </TouchableOpacity>
           
