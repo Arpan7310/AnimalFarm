@@ -73,19 +73,16 @@ class ReportBirth extends Component {
 
           onPress={() => {
 
-            try {
+           
               let data = { 'dob': this.state.date, 'neocount': this.state.neocount, 'colonyId': this.props.navigation.getParam('colonyId'), "breed": this.props.navigation.getParam('breedertype'), 'breeder_id': this.props.navigation.getParam('breederId')['$oid'] };
-              Alert.alert('sdf', JSON.stringify(data));
+         
               Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/reportBirth', data).then(res => {
-                {/* Alert.alert('Death count recorded!'); */ }
+                Alert.alert('Birth count recorded!',JSON.stringify(data)); 
               }).catch(err => {
-                {/* Alert.alert('request failed', err.message); */ }
+                 Alert.alert('request failed ',JSON.stringify(err.message)); 
               });
-            }
-            catch (err) {
-
-              Alert.alert(err)
-            }
+            
+         
           }
           } >
           <View style={{ width: Dimensions.get('window').width - 40, height: 50, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
