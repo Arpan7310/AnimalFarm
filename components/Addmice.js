@@ -12,9 +12,23 @@ class Addmice extends Component {
       x:null,
       array:[],
       y:null,
+   
     
     }
   }
+
+
+  componentWillMount(){
+      
+    
+    this.props.navigation.getParam('array').map((d)=>{
+      this.setState({
+     array:{id:this.state.array.length,value:d}  
+      })
+    })
+      
+  }
+
 
   setModalVisible(visible) {
     this.setState(
@@ -133,7 +147,7 @@ this.setState({
          {this.state.array.map((x)=>{
         return(
           <View style={{flexDirection:'row', alignItems:'center',justifyContent:'space-evenly',borderWidth:0.5,borderRadius:15,margin:10}}>
-            <Image source={require('./assets/mice.png')}  /> 
+            <Image source={require('./assets/mice.png')} style={{marginRight:40}} /> 
           <Text >
             {x.value}
           </Text>
@@ -143,7 +157,7 @@ this.setState({
             [ { text: 'Cancel'},
              {text: 'OK', onPress: () => this.delete(x.id)} ]
                )}>
-          <Image source={require('./assets/delete.png') }  /> 
+          <Image source={require('./assets/delete.png') }  style={{marginLeft:50}} /> 
           </TouchableOpacity>
           
           </View>
