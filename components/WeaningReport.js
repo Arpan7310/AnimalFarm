@@ -35,11 +35,12 @@ class WeaningReport extends Component {
     let body=JSON.parse(e.data)
     Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type})
 .then((res)=>{
-   if( res.data.isValid ==true)
+    if( res.data.isValid ==true)
+   Alert.alert('hello',JSON.stringify(res.data.weight))
    ( this.props.navigation.push('Addmice',{array:res.data.weight,'id':this.state.type}))
     
 }).catch(err=>{
-    Alert.alert('Could not connect',JSON.stringify(err));
+    Alert.alert("error");
 })
 this.setState({
     modalVisible:!this.state.modalVisible
