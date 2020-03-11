@@ -16,7 +16,8 @@ import WeaningReport from './WeaningReport'
 import Addmice from './Addmice'
 import MarketDeath from './MarketDeath'
 import Selector from './Selector'
-
+import CreateColony from './CreateColony'
+ 
 const AppNavigator = createStackNavigator(
     {
 
@@ -40,7 +41,8 @@ const AppNavigator = createStackNavigator(
    Addmice:Addmice,
    MarketDeath:MarketDeath,
    Selector:Selector,
-   Market:Market
+   Market:Market,
+   CreateColony:CreateColony
   
   
 },{
