@@ -22,16 +22,17 @@ constructor(props){
 }
   componentWillMount() {
 
-    Axios.post('https://dod43zkg9b.execute-api.ap-south-1.amazonaws.com/dev/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
+    Axios.post('http://192.168.0.108:5000/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
 
    this.setState({
        x:res.data,
        y:res.data.neonates,
        btype:res.data.breed
      })
+     Alert.alert('Data is', JSON.stringify(res.data));
     }).catch(err => {
       Alert.alert('Something went wrong', JSON.stringify(err));
-      this.props.navigation.pop();
+    //this.props.navigation.pop();
     });
   }
 
@@ -58,7 +59,7 @@ constructor(props){
 
     </TouchableOpacity>
    
-  <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id']['$oid'],'breedertype':this.state.btype})}>
+  <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id'],'breedertype':this.state.btype})}>
   <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,elevation:5,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
     <Text style={{color:'grey',fontSize:24,padding:30}} >Report Birth</Text>
     </View>
@@ -66,7 +67,7 @@ constructor(props){
    {this.state.y.map((x)=>{
      return(
       <TouchableOpacity onPress={() =>
-      this.props.navigation.push('WeaningReport',{'id': x['id']['$oid'],'colonyId': this.state.x.colonyId})
+      this.props.navigation.push('WeaningReport',{'id': x.batchId,'colonyId': this.state.x.colonyId})
    } >
    <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,elevation:5,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
     <Text style={{color:'grey',fontSize:24,padding:30}} >{'Age: ' + parseInt((new Date().getTime() - new Date(x.dob).getTime()) / (1000*60*60*24)) + ' days'}</Text>

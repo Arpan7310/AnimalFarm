@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState ,Image,ScrollView} from 'react-native'
+import Axios from 'axios';
 
 
 class Addmice extends Component {
@@ -12,7 +13,7 @@ class Addmice extends Component {
       x:null,
       array:[],
       y:null,
-   
+      c:0
     
     }
   }
@@ -20,13 +21,15 @@ class Addmice extends Component {
 
   componentWillMount(){
       
-    
+
+    const arr = [];
     this.props.navigation.getParam('array').map((d)=>{
-      this.setState({
-     array:{id:this.state.array.length,value:d}  
-      })
+      arr.push({id: this.state.c++, value: d})
     })
-      
+    this.setState({
+      array: arr
+    });
+      Alert.alert('a',JSON.stringify(this.state.array))
   }
 
 
@@ -40,14 +43,14 @@ class Addmice extends Component {
   }
 
   handleSubmit = () => {
+const arry=this.state.array;
     
-      this.setState({
-        array: this.state.array.concat(this.state.x),
-        y:this.state.array.length +1
-      })
-    
-
-  }
+  arry.push(this.state.x)
+  this.setState({
+    array:arry
+  })
+     
+     }
 
 
 
@@ -58,12 +61,26 @@ class Addmice extends Component {
   return item.id!==x})
 this.setState({
   array:array,
-  y:this.state.array.length -1
+
 })
 
 
   }
 
+  async uploadData() {
+    const body = {
+      weight: this.state.array,
+      type: this.props.navigation.getParam('type'),
+      containerId: this.props.navigation.getParam('containerId'),
+      batchId:this.props.navigation.getParam('batchId')
+    };
+    try {
+      const res = await Axios.post('http://192.168.0.108:5000/v1/addWeaningData', body);
+      Alert.alert('data uploaded', JSON.stringify(res.data.status));
+    } catch(err) {
+      Alert.alert('Something went wrong', JSON.stringify(err));
+    }
+  }
   render() {
 
     return (
@@ -81,7 +98,7 @@ this.setState({
              
               </View>
               
-             <Text style={{  color: 'white', fontSize: 24 }}>Total Count {this.state.y}</Text>
+             <Text style={{  color: 'white', fontSize: 24 }}>Total Count {(this.state.c+1)}</Text>
             </View>
            
           </TouchableOpacity>
@@ -119,7 +136,7 @@ this.setState({
                   
                   <Image source={require('./assets/weight.png')} />
                   <TextInput placeholder="enter weight here " onChangeText={(e) => this.setState({
-                    x: {value:e,id:this.state.array.length}
+                    x: {value:e,id:this.state.c++}
                   })
                   } />
                   </View>
@@ -166,7 +183,7 @@ this.setState({
          })}
          </ScrollView>
           <TouchableOpacity onPress={ ()=>
-            this.props.navigation.pop()
+            this.uploadData()
             }
             
             style={{position:"absolute" ,marginTop:480}}>
