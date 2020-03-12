@@ -22,7 +22,7 @@ constructor(props){
 }
   componentWillMount() {
 
-    Axios.post('http://192.168.0.108:5000/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
+    Axios.post('https://krishna-bhks.localhost.run/v1/getContainerDetails', this.props.navigation.getParam('qr')).then(res => {
 
    this.setState({
        x:res.data,

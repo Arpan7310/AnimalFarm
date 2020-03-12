@@ -18,14 +18,14 @@ class WeaningReport extends Component {
     componentWillMount() {
        
      
-        Axios.post('http://192.168.0.108:5000/v1/getWeaningData', 
+        Axios.post('https://krishna-bhks.localhost.run/v1/getWeaningData', 
         {
             id: this.props.navigation.getParam('id')
         }).then(res => {
            this.setState({
                x:res.data
            })
-           Alert.alert('data',JSON.stringify(res.data))
+           Alert.alert('data 1',JSON.stringify(res.data))
         }).catch(err => {
             Alert.alert('Could not connect to server', JSON.stringify(err));
         }); 
@@ -34,11 +34,11 @@ class WeaningReport extends Component {
 
  onSuccess = (e) => {
     let body=JSON.parse(e.data)
-    Axios.post('http://192.168.0.108:5000/v1/verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type})
+    Axios.post('https://krishna-bhks.localhost.run/v1/verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type})
 .then((res)=>{
     if( res.data.isValid ==true)
   this.props.navigation.push('Addmice',{array: res.data.weight, type: this.state.type, containerId: body.id, batchId:this.props.navigation.getParam('id')});
-Alert.alert('data',JSON.stringify(res.data))
+Alert.alert('data n',JSON.stringify(res.data))
     
 }).catch(err=>{
     Alert.alert(JSON.stringify(err));

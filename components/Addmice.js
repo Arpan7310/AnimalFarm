@@ -75,7 +75,7 @@ this.setState({
       batchId:this.props.navigation.getParam('batchId')
     };
     try {
-      const res = await Axios.post('http://192.168.0.108:5000/v1/addWeaningData', body);
+      const res = await Axios.post('https://krishna-bhks.localhost.run/v1/addWeaningData', body);
       Alert.alert('data uploaded', JSON.stringify(res.data.status));
     } catch(err) {
       Alert.alert('Something went wrong', JSON.stringify(err));
@@ -98,7 +98,7 @@ this.setState({
              
               </View>
               
-             <Text style={{  color: 'white', fontSize: 24 }}>Total Count {(this.state.c+1)}</Text>
+             <Text style={{  color: 'white', fontSize: 24 }}>Total Count {this.state.array.length }</Text>
             </View>
            
           </TouchableOpacity>
