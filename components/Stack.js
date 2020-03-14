@@ -3,7 +3,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Homepage from './Homepage'
-import ColonyPage from './ColonyPage'
+import BreederPage from './BreederPage'
 import Qrcode from './Qrcode'
 import ReportDeath from './ReportDeath'
 import ReportBirth from './ReportBirth'
@@ -28,7 +28,7 @@ const AppNavigator = createStackNavigator(
   },
   
  
-   ColonyPage:ColonyPage,
+   BreederPage:BreederPage,
    ReportBirth:ReportBirth,
    ReportDeath:ReportDeath,
    Store:Store,

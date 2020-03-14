@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Text, View, Modal, TextInput, TouchableOpacity, Dimensions, formatSheet, TouchableHighlight, Alert, useState ,Image,ScrollView} from 'react-native'
 import Axios from 'axios';
-
+import url from './Url'
 
 class Addmice extends Component {
 
@@ -75,7 +75,7 @@ this.setState({
       batchId:this.props.navigation.getParam('batchId')
     };
     try {
-      const res = await Axios.post('https://krishna-bhks.localhost.run/v1/addWeaningData', body);
+      const res = await Axios.post(url + 'addWeaningData', body);
       Alert.alert('data uploaded', JSON.stringify(res.data.status));
     } catch(err) {
       Alert.alert('Something went wrong', JSON.stringify(err));
@@ -186,9 +186,9 @@ this.setState({
             this.uploadData()
             }
             
-            style={{position:"absolute" ,marginTop:480}}>
+            style={{position:"absolute" ,marginTop:680}}>
             <View style={{ width: Dimensions.get('window').width - 20, height: 50, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 10, justifyContent: 'center', alignItems: 'center' ,}}>
-              <Text style={{ flex: 4, paddingLeft:133, color: 'white', fontSize: 24 }}>DONE</Text>
+              <Text style={{  color: 'white', fontSize: 24 }}>DONE</Text>
             </View>
           </TouchableOpacity>
         </View>

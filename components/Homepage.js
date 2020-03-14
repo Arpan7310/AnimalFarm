@@ -14,8 +14,9 @@ import {
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import ColonyPage from './ColonyPage';
+import BreederPage from './BreederPage';
 import Axios from 'axios'
+
 class Homepage extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class Homepage extends Component {
       return;
     }
     const map = {
-      'B' : 'ColonyPage',
+      'B' : 'BreederPage',
       'M' : 'Market',
       'S': 'Selector'
     };

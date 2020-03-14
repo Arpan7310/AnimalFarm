@@ -2,13 +2,28 @@ import React, { Component } from 'react'
 import { View, Text, Dimensions, TextInput, TouchableOpacity, Alert } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import Axios from 'axios'
+import url from './Url'
 class ReportBirth extends Component {
 
   constructor() {
     super();
     this.state = {
       date: new Date(),
-      neocount: null
+      neocount: null,
+      c:0
+    }
+  }
+
+
+   async reportBirth () {
+    let data = { 'dob': this.state.date, 'neocount': this.state.neocount, 'colonyId': this.props.navigation.getParam('colonyId'), "breed": this.props.navigation.getParam('breedertype'), 'breederId': this.props.navigation.getParam('breederId') };
+    try{
+const res= Axios.post (url +'reportBirth' , data);
+
+this.props.navigation.pop();
+    }
+    catch(err){
+      Alert.alert(JSON.stringify(err))
     }
   }
 
@@ -70,21 +85,17 @@ class ReportBirth extends Component {
 
 
         <TouchableOpacity
-
-          onPress={() => {
+   
+          onPress={() => 
+          Alert.alert(
+            'Are You Sure?',
+            '',
+            [{text:'Yes',onPress: ()=> this.reportBirth()},
+            {text:'cancel',onPress: ()=>console.log("cancel pressed")}]
+          )
 
            
-              let data = { 'dob': this.state.date, 'neocount': this.state.neocount, 'colonyId': this.props.navigation.getParam('colonyId'), "breed": this.props.navigation.getParam('breedertype'), 'breederId': this.props.navigation.getParam('breederId') };
-         
-              Axios.post('http://192.168.0.108:5000/v1/reportBirth', data).then(res => {
-                Alert.alert('Birth count recorded!',JSON.stringify(res.data)); 
-              }).catch(err => {
-                 Alert.alert('request failed ',JSON.stringify(err)); 
-              });
-            
-         
-          }
-          } >
+               } >
           <View style={{ width: Dimensions.get('window').width - 40, height: 50, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={{ color: 'white' }}>Update</Text>
           </View>
