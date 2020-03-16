@@ -186,7 +186,7 @@ this.setState({
             this.uploadData()
             }
             
-            style={{position:"absolute" ,marginTop:680}}>
+            style={{position:"absolute" ,marginTop:Dimensions.get('window').height-260}}>
             <View style={{ width: Dimensions.get('window').width - 20, height: 50, backgroundColor: '#7189FF', flexDirection: 'row', borderRadius: 10, margin: 10, justifyContent: 'center', alignItems: 'center' ,}}>
               <Text style={{  color: 'white', fontSize: 24 }}>DONE</Text>
             </View>
