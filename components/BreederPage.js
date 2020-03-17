@@ -30,7 +30,7 @@ constructor(props){
           y:res.data.neonates,
           btype:res.data.breed
         })
-        Alert.alert('Data is', JSON.stringify(res.data));
+    
       
        }).catch(err => {
          Alert.alert('Something went wrong', JSON.stringify(url));
@@ -77,7 +77,7 @@ constructor(props){
   {this.state.y.map((x)=>{
      return(
       <TouchableOpacity onPress={() =>
-      this.props.navigation.push('WeaningReport',{'id': x.batchId,'colonyId': this.state.x.colonyId,'brederId':this.state.x['_id']})
+      this.props.navigation.push('WeaningReport',{'id': x.batchId,'colonyId': this.state.x.colonyId,'breederId':this.state.x['_id']})
    } >
    <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
     <Text style={{color:'grey',fontSize:24,padding:30}} >{'Age: ' + parseInt((new Date().getTime() - new Date(x.dob).getTime()) / (1000*60*60*24)) + ' days'}</Text>

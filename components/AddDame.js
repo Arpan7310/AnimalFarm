@@ -110,8 +110,12 @@ class AddDame extends Component{
          })}
          </ScrollView>
          <TouchableOpacity onPress={ ()=> {
-                this.props.onGoBack(JSON.stringify({dames: this.state.array}));
-                this.props.dismiss();
+           if (this.state.array == null || this.state.array.length == 0) {
+             Alert.alert('Error', 'Please add atleast one dame to include this breeder');
+             return;
+           }
+              this.props.onGoBack(JSON.stringify({dames: this.state.array}));
+              this.props.dismiss();
             }
             }
             style={{position:"absolute" ,marginTop:Dimensions.get('window').height-180}}>

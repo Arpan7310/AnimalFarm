@@ -188,6 +188,27 @@ class Homepage extends Component {
               </Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity   onPress={() => this.props.navigation.push('Temporary')}>
+            <View
+          
+              style={{
+                width: Dimensions.get('window').width - 20,
+                height: 100,
+                borderRadius: 20,
+                alignItems: 'center',
+                margin: 15,
+              
+                backgroundColor: 'white',
+                borderColor: 'grey',
+                borderWidth: 0.2
+                
+              }}>
+              <Text style={{color: 'grey', fontSize: 24, padding: 30}}>
+               Temporary
+              </Text>
+            </View>
+          </TouchableOpacity>
+          
         </View>
       </ScrollView>
     );

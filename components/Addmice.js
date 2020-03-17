@@ -29,7 +29,7 @@ class Addmice extends Component {
     this.setState({
       array: arr
     });
-      Alert.alert('a',JSON.stringify(this.state.array))
+
   }
 
 
@@ -76,7 +76,7 @@ this.setState({
     };
     try {
       const res = await Axios.post(url + 'addWeaningData', body);
-      Alert.alert('data uploaded', JSON.stringify(res.data.status));
+     
     } catch(err) {
       Alert.alert('Something went wrong', JSON.stringify(err));
     }
@@ -109,7 +109,7 @@ this.setState({
             visible={this.state.modalVisible}
             presentationStyle={formatSheet}
             onRequestClose={() => {
-              Alert.alert('Modal has been closed.'),
+            
               this.setModalVisible(!this.state.modalVisible)
             }}>
             <View

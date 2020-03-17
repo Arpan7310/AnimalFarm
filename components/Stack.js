@@ -18,7 +18,7 @@ import MarketDeath from './MarketDeath'
 import Selector from './Selector'
 import CreateColony from './CreateColony'
 import AddDame from './AddDame'
- 
+ import Temporary from './Temporary'
 const AppNavigator = createStackNavigator(
     {
 
@@ -44,7 +44,8 @@ const AppNavigator = createStackNavigator(
    Selector:Selector,
    Market:Market,
    CreateColony:CreateColony,
-   AddDame:AddDame
+   AddDame:AddDame,
+   Temporary:Temporary
   
   
 },{

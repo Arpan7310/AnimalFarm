@@ -25,7 +25,8 @@ map = {};
             addDameVisible: false,
             length:0,
             currentBId: '',
-            cname:''
+            cname:'',
+            restId:null
         }
 
     }
@@ -51,18 +52,32 @@ onMyAss = (arr) => {
         const body = JSON.parse(e.data);
         Axios.post(url + 'verifyIdentity', { id: body.id, type: body.type, verifyType: this.state.toVerify }).then((res) => {
             
-            if (res.data.isValid) {
+            if (res.data.isValid== true) {
+                Alert.alert('Inside isvalid true');
                 if (this.state.toVerify === 'sire') {
                     if (res.data.data) {
                         this.setState({
                             sire: res.data.data
                         });
                     }
-                    Alert.alert(JSON.stringify(this.state.sire))
                 }
+                    else if (this.state.toVerify === 'rest'){
+
+                        this.setState({
+                           restId:body.id
+
+                        })
+
+                    }
+                    
+                
+            
+            
+
+
+                
                 else {
                    
-                    
                     if (this.map[body.id]) {
                         Alert.alert('This breeder box is already added to list');
                         return;
@@ -107,6 +122,7 @@ onMyAss = (arr) => {
 
     async uploadData() {
         const body = {
+           restboxId:this.state.restId,
           breed: this.state.language,
           breeder_ids: this.state.breeder,
           sire_batchId: this.state.sire.batchId,
@@ -116,6 +132,7 @@ onMyAss = (arr) => {
         try {
           const res = await Axios.post(url + 'createColony', body);
           Alert.alert('data uploaded', JSON.stringify(res.data.status));
+          this.props.navigation.pop();
         } catch(err) {
           Alert.alert('Something went wrong', JSON.stringify(err));
         }
@@ -152,11 +169,20 @@ onMyAss = (arr) => {
                 })}>
                     <Card text='Add Breeder' />
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setState({
+                    modalVisible: true,
+                    toVerify: 'rest'
+                })}>
+                    <Card text={(this.state.restId)? this.state.restId :'Add Rest'} />
+                </TouchableOpacity>
+
+
+
                 {this.state.array.map((d) =>
                     <TouchableOpacity onPress={() => {
                         this.setState({addDameVisible: true, currentBId: d.data});
                         {/* this.props.navigation.push('AddDame',{breederId: d.data, onGoBack: this.updateDames}); */}
-                        Alert.alert('hello');
+                        
                         }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', borderWidth: 0.5, borderRadius: 15, margin: 10 }}>
                             <Image source={require('./assets/mice.png')} style={{ marginRight: 40 }} />

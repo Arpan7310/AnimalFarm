@@ -26,7 +26,7 @@ class WeaningReport extends Component {
            this.setState({
                x:res.data
            })
-           Alert.alert('data 1',JSON.stringify(res.data))
+          
         }).catch(err => {
             Alert.alert('Could not connect to server', JSON.stringify(err));
         }); 
@@ -43,7 +43,7 @@ class WeaningReport extends Component {
 .then((res)=>{
     if( res.data.isValid ==true)
   this.props.navigation.push('Addmice',{array: res.data.weight, type: this.state.type, containerId: body.id, batchId:this.props.navigation.getParam('id')});
-Alert.alert('data n',JSON.stringify(res.data))
+
     
 }).catch(err=>{
     Alert.alert(JSON.stringify(err));
@@ -71,7 +71,7 @@ try{
 
 
     const res = await Axios.post( url +'completeWeaning',body);
- Alert.alert('Weaning completed');
+
  this.props.navigation.pop();
 
    
@@ -149,7 +149,7 @@ catch(err){
                     transparent={false}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
-                        Alert.alert('Modal has been closed.'),
+                       
                             this.setState({
                                 modalVisible:!this.state.modalVisible
                             })
