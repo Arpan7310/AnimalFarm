@@ -76,6 +76,7 @@ this.setState({
     };
     try {
       const res = await Axios.post(url + 'addWeaningData', body);
+      
      
     } catch(err) {
       Alert.alert('Something went wrong', JSON.stringify(err));
@@ -183,7 +184,8 @@ this.setState({
          })}
          </ScrollView>
           <TouchableOpacity onPress={ ()=>
-            this.uploadData()
+            this.uploadData(),
+            this.props.navigation.pop()
             }
             
             style={{position:"absolute" ,marginTop:Dimensions.get('window').height-260}}>

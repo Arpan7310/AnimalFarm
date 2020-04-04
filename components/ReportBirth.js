@@ -34,6 +34,7 @@ this.props.navigation.pop();
         <View style={{ width: Dimensions.get('window').width - 20, height: 150, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, margin: 15, justifyContent: 'center', alignItems: 'center' }}>
 
           <Text style={{ color: 'white', fontSize: 24 }}>{this.props.navigation.getParam('colonyId')}</Text>
+          <Text style={{ color: 'white', fontSize: 24 }}>{this.props.navigation.getParam('cName')}</Text>
 
           <Text style={{ color: 'white', fontSize: 24 }}>Generation:F1</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }} >
@@ -75,7 +76,7 @@ this.props.navigation.pop();
 
         </View>
         <View>
-          <TextInput placeholder='no of dead' style={{ width: Dimensions.get('window').width - 40, borderBottomColor: 'grey', margin: 10, borderBottomWidth: 1 }} keyboardType='numeric'
+          <TextInput placeholder='no of births' style={{ width: Dimensions.get('window').width - 40, borderBottomColor: 'grey', margin: 10, borderBottomWidth: 1 }} keyboardType='numeric'
             onChangeText={(e) =>
               this.setState({
                 neocount: e

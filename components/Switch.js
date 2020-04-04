@@ -3,23 +3,24 @@ import { createAppContainer } from 'react-navigation';
 import Pincode from './Pincode'
 import Stack from './Stack'
 import React ,{Component} from 'react'
-
-import {View, AsyncStorage} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
+import {View} from 'react-native'
 import Store from './Store'
-import RouterPage from './RouterPage'
+
+import Loginpage from './Loginpage'
 
 
 
 
 const Navigator=createSwitchNavigator({
-    RouterPage:RouterPage,
+    Loginpage:Loginpage,
+    
     Store:Store,
-
     Pincode:Pincode,
     Stack:Stack,
 },
    {
-       initialRouteName:'RouterPage'
+       initialRouteName:'Loginpage'
    }
   
 )

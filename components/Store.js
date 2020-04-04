@@ -1,28 +1,75 @@
 import React ,{Component} from 'react'
 import PINCode from '@haskkor/react-native-pincode'
-import {View,Button,Alert} from 'react-native'
+import {View,Button,Alert,Text} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import Axios from 'axios'
+import url from './Url'
 class Store extends Component{
+  
 
-   removeData = async () => {
-        try {
-            await AsyncStorage.setItem('mykey','cnu');
-          Alert.alert('New PinCode created')
-        } catch (error) {
-          // Error saving data
+
+   componentWillMount(){
+
+   this.props.navigation.addListener(  'willFocus' ,  async  e =>{
+
+    try{
+    this.setState({
+      email:await AsyncStorage.getItem('email')
+    })
+   }
+
+  
+
+  catch(err){
+Alert.alert(err)
+  }
+})
+
+}
+
+  constructor(){
+
+    super()
+    this.state={
+      rpin:'',
+      email:''
+    }
+
+  }
+  async removeData   ()  {
+try{
+    
+   let data={
+               email:this.state.email,
+               pin:this.state.rpin,
+               } 
+       const res =   Axios.post(url + 'resetpin' ,data)
+       
+       
+       await AsyncStorage.setItem('mykey',this.state.rpin);
+       Alert.alert('Pin has been reset')
+       this.props.navigation.pop()
+        } catch (err) {
+          Alert.alert(JSON.stringify(err.message))
         }
       };
 
     render(){
         return(
        <View style={{flex:1}}>
+        
        <PINCode 
-             finishProcess={this.removeData}
+             finishProcess={()=>this.removeData()}
            
                 status={'choose'}
-                touchIDDisabled={true}
+                storePin={(e)=>{
+                  this.setState({
+                    rpin:e
+                  })
+                }}
+                
                 /> 
-               <Button title='Go back'  onPress={()=>this.props.navigation.navigate('RouterPage')}/>
+               
        </View>
          
           )

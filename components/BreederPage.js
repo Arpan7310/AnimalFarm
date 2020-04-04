@@ -65,7 +65,7 @@ constructor(props){
 
    </TouchableOpacity>
   
- <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id'],'breedertype':this.state.btype})} >
+ <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id'],'breedertype':this.state.btype,'cName':this.state.x.cName})} >
  <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
    <Text style={{color:'grey',fontSize:24,padding:30}} >Report Birth</Text>
    </View>
