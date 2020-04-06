@@ -3,16 +3,18 @@
 import React, { Component } from 'react';
 
 
-
-import Switch from './components/Switch'
+import {Text,View } from 'react-native'
+ import Switch from './components/Switch'
 class App extends Component {
 
  
 
   render() {
+  
     return (
-     <Switch />
-    )
+     <Switch />)
+    
+    
 }
 }
 

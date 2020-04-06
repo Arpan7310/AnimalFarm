@@ -21,26 +21,30 @@ class Loginpage extends Component {
             signup:false,
             pin:'',
             bool:false,
-            login:false
+            login:false,
+            
+            
             
         }
     }
 
 
-     componentWillMount (){
+    async  componentWillMount (){
   
-    this.props.navigation.addListener('willFocus', async  e =>{
-        
+
     try{
-        if (await AsyncStorage.getItem('mykey')!==null)
+        if (await AsyncStorage.getItem('mykey')!==null){
+      
+       
          this.props.navigation.navigate('Pincode')
+        }
            
        }
          catch(err){
              
          }
 
-})
+
      
 }
 
@@ -73,8 +77,16 @@ this.setState({
  })
  Alert.alert(res.data.message)
 }
-}
+else
+Alert.alert('Wrong credentials check email or password again')
+this.setState({
+  login:false
+})
 
+
+}
+else
+Alert.alert('Invalid credentials')
 }
 catch(err){
 Alert.alert(JSON.stringify(err.message))
@@ -86,10 +98,11 @@ Alert.alert(JSON.stringify(err.message))
     let data ={email:this.state.email,
         password:this.state.password,
         pin:this.state.pin}
-        if( this.state.email !=='' && this.state.password !== '' && this.state.pin !== '')
+        if( data.email !=='' && data.password !== '' && data.pin.length == 4)
         this.setState({
           bool:true
         })
+        
  
     try{
          
@@ -101,12 +114,20 @@ Alert.alert(JSON.stringify(err.message))
          bool:false
        })
        Alert.alert(JSON.stringify(res.data.message))
+       if (res.data.message =='sigunp complete')
        this.setState({
          signup:false
        })
         }
-
-    }
+        else{
+          Alert.alert('Invalid credentials')
+           this.setState({
+             bool:false
+           })
+          }
+        
+  
+       }
     
     catch(err){
     Alert.alert(JSON.stringify(err.message))
@@ -118,6 +139,8 @@ Alert.alert(JSON.stringify(err.message))
 
   render(){
 
+
+   
 
         return(
       <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'lightgrey'}}>
@@ -200,6 +223,11 @@ Alert.alert(JSON.stringify(err.message))
 
       </View>
         )
+                  
+                  
+          
+
+                  
     }
 }
 

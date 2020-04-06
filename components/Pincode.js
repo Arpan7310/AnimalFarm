@@ -20,8 +20,8 @@ class Pincode extends Component{
 
 
 
-  componentWillMount () {
-    this.props.navigation.addListener('willFocus', async  e =>{
+ async  componentWillMount () {
+
         
       try{
         this.setState({
@@ -33,7 +33,7 @@ class Pincode extends Component{
             Alert.alert(JSON.stringify(err))
            }
   
-  })
+  
        
   }
   
