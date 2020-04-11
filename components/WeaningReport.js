@@ -44,7 +44,7 @@ class WeaningReport extends Component {
     if( res.data.isValid ==true)
   this.props.navigation.push('Addmice',{array: res.data.weight, type: this.state.type, containerId: body.id, batchId:this.props.navigation.getParam('id')});
 
-    
+    Alert.alert(JSON.stringify(res.data.isValid))
 }).catch(err=>{
     Alert.alert(JSON.stringify(err));
 })

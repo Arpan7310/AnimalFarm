@@ -1,10 +1,11 @@
 import  React, {Component} from 'react'
-import {View,Text,TextInput,Dimensions,Button,StyleSheet,Modal,ActivityIndicator} from 'react-native'
+import {View,Text,TextInput,Dimensions,Button,StyleSheet,Modal,ActivityIndicator,TouchableOpacity} from 'react-native'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import PINCode from '@haskkor/react-native-pincode'
 import Axios from 'axios'
 import url from './Url';
+
 class Loginpage extends Component {
 
 
@@ -49,14 +50,15 @@ class Loginpage extends Component {
 }
 
 async  handleLogin  ()  {
-let data ={email:this.state.email,password:this.state.password}
-if( this.state.email !=='' && this.state.password !== '' )
-        this.setState({
-          login:true
-        })
- 
+let data ={email:this.state.email.trim(),password:this.state.password}
+this.setState({
+  login:true
+})
 try{
 if(data.email !== '' && data.password !== ''){
+
+  
+
   const res= await  Axios.post(url +'login',data);
  
   if(res.data.message=='login succesful'){
@@ -87,27 +89,31 @@ this.setState({
 }
 else
 Alert.alert('Invalid credentials')
+this.setState({
+  login:false
+})
 }
 catch(err){
 Alert.alert(JSON.stringify(err.message))
+this.setState({
+  login:false
+})
 }
  }
 
 
  async  handleSignup  ()  {
-    let data ={email:this.state.email,
+    let data ={email:this.state.email.trim(),
         password:this.state.password,
-        pin:this.state.pin}
-        if( data.email !=='' && data.password !== '' && data.pin.length == 4)
+        pin:this.state.pin.trim()}
         this.setState({
           bool:true
         })
-        
- 
-    try{
+       try{
          
         if(data.email !== '' && data.password !== '' && data.pin.length == 4){
        
+          
         const res= await  Axios.post(url +'signup',data)
         
         this.setState({
@@ -116,7 +122,11 @@ Alert.alert(JSON.stringify(err.message))
        Alert.alert(JSON.stringify(res.data.message))
        if (res.data.message =='sigunp complete')
        this.setState({
-         signup:false
+         signup:false,
+         email:'',
+         password:'',
+         pin:'',
+         bool:false
        })
         }
         else{
@@ -131,6 +141,9 @@ Alert.alert(JSON.stringify(err.message))
     
     catch(err){
     Alert.alert(JSON.stringify(err.message))
+    this.setState({
+      bool:false
+    })
     }
      }
 
@@ -139,10 +152,7 @@ Alert.alert(JSON.stringify(err.message))
 
   render(){
 
-
-   
-
-        return(
+    return(
       <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'lightgrey'}}>
      
         <TextInput  style={{width:Dimensions.get('window').width-40,backgroundColor:'white',borderRadius:10,margin:10}} placeholder="Enter email" onChangeText ={ (e)=> 
@@ -152,7 +162,7 @@ Alert.alert(JSON.stringify(err.message))
           } />
 
 
-          <TextInput  style={{width:Dimensions.get('window').width-40,backgroundColor:'white',borderRadius:10,margin:10}} placeholder="Enter password"  secureTextEntry={true}  onChangeText ={ (e)=> 
+          <TextInput  style={{width:Dimensions.get('window').width-40,backgroundColor:'white',borderRadius:10,margin:10}} placeholder="Enter password"  secureTextEntry={true}    onChangeText ={ (e)=> 
         this.setState({
             password:e
             })
@@ -164,16 +174,26 @@ Alert.alert(JSON.stringify(err.message))
              <View style={{marginRight:10}}>
                <View style={{flexDirection:'row'}} >
                <ActivityIndicator size="large" color="#7189FF"  animating={this.state.login}/>
-              <Button title='Login' color='#7189FF'  width onPress={() =>this.handleLogin()} />
+               <TouchableOpacity onPress={() =>this.handleLogin()}>
+                 <View style={{width:90,height:40,backgroundColor:'#7189FF',borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                   <Text style={{color:'white'}}>Login</Text>
+                 </View>
+               </TouchableOpacity>
+             
                </View>
             
      </View>
      
          <View style={{marginLeft:10,marginRight:34}}>
-         <Button title='Signup' color='#7189FF'   width onPress={() =>this.setState({
+         <TouchableOpacity onPress={() =>this.setState({
              signup:true,
-             email:'',
-             password:''})} />
+             email:'',  
+             password:''})} >
+             <View style={{width:90,height:40,backgroundColor:'#7189FF',borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                   <Text style={{color:'white'}}>Signup</Text>
+                 </View>
+             
+             </TouchableOpacity>
          </View>
    
      </View>
@@ -187,13 +207,15 @@ Alert.alert(JSON.stringify(err.message))
 
                     onShow={()=>this.setState({
                       email:'',
-                      password:''
+                      password:'',
+                      pin:''
                     })}
                     onRequestClose={() => {
                         this.setState({
                            signup: false,
                            email:'',
-                           password:''
+                           password:'',
+                           pin:''
                         })
                     }}>
              <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor:'lightgrey'}}>
@@ -216,7 +238,13 @@ Alert.alert(JSON.stringify(err.message))
                     })
                     } />
                     <ActivityIndicator size="large" color="#7189FF"  animating={this.state.bool}/>
-               <Button title='Signup' color='#7189FF'  width onPress={() =>this.handleSignup()} />
+                    <TouchableOpacity
+                    onPress={() =>this.handleSignup()}>
+                    <View style={{width:90,height:40,backgroundColor:'#7189FF',borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                   <Text style={{color:'white'}}>Signup</Text>
+                 </View> 
+                    </TouchableOpacity>
+              
                    </View>
                 </Modal>
 
