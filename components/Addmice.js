@@ -20,6 +20,12 @@ smqr=null;
 sfqr=null;
 x=false;
 c=0;
+ob={
+  id:'',
+  value:'',
+  box:'',
+  gender:''
+};
 
 
 constructor(props) {
@@ -27,13 +33,11 @@ constructor(props) {
     this.state = {
       checked:'first',
        modalVisible: false,
-       x:{id:'',
-       value:'',
-       gender:''},
+       
        array:[],
        y:null,
        c:0,
-       bool:false,
+       
        language:'',
        sm:false,
        mm:false,
@@ -41,7 +45,6 @@ constructor(props) {
        mf:false,
        modal:false,
        qr:false,
-       qrarray:[],
        mmt:'Click to scan market male',
        mft:'Click to scan market female',
        smt:'Click to scan selection male',
@@ -68,7 +71,7 @@ if(this.state.type=='sm')
 this.smqr={data:JSON.parse(e.data),type:this.state.type}
 if(this.state.type=='sf')
 this.sfqr={data:JSON.parse(e.data),type:this.state.type}
-let arry=this.state.qrarray;
+
 let a=JSON.parse(e.data).id
 
 
@@ -108,18 +111,21 @@ let a=JSON.parse(e.data).id
     );
   }
 
-  handleSubmit = () => {
+ handleSubmit = () => {
 const arry=this.state.array;
-    
-  arry.push(this.state.x)
+this.ob.id=this.state.c++;
+
+  arry.push(this.ob)
   this.setState({
-    array:arry,
-    x:{
-      value:'',
-      id:'',
-      gender:''
-    }
+    array:arry
+   
   })
+  this.ob={
+    id:'',
+    value:'',
+    box:'',
+    gender:''
+  };
   
  this.setModalVisible(!this.state.modalVisible)
      
@@ -248,7 +254,7 @@ let  mmd={
     body.smd=smd
     if (this.sfqr!==null)
     body.sfd=sfd
-
+body.weights=this.state.array
 
 
 if(this.state.mm){
@@ -289,7 +295,7 @@ this.x=true;
     })
   this.props.navigation.pop();
    
-  Alert.alert('Data received')
+  Alert.alert(JSON.stringify(body.weights))
    }
    else{
      
@@ -328,8 +334,22 @@ this.sfa=arry4;
 }
 
 
-
-
+updatefobject (){
+  this.setState({ checked: 'second' 
+             
+               
+})
+  this.ob.gender='female',this.ob.box='market'
+}
+updatemobject (){
+  this.setState ( { checked: 'first' 
+                
+             
+               
+                
+})
+  this.ob.gender='male',this.ob.box='market'
+}
 
 
 
@@ -390,11 +410,7 @@ this.sfa=arry4;
                   <View style={{flexDirection:'row' ,justifyContent:'space-between'}} >
                   
                   <Image source={require('./assets/weight.png')} />
-                  <TextInput keyboardType={'numeric'} placeholder="enter weight here " onChangeText={(e) => this.setState(prevState=>({
-                    x: {
-                      ...prevState.x,
-                      value:e}
-                  }))
+                  <TextInput keyboardType={'numeric'} placeholder="enter weight here " onChangeText={(e) => this.ob.value=e
                   } />
                 </View>
                 </View>
@@ -405,14 +421,7 @@ this.sfa=arry4;
                  value="first"
                 status={checked === 'first' ? 'checked' : 'unchecked'}
                  
-                onPress={() => { this.setState (prevState =>( { checked: 'first' ,
-                
-                bool:false,
-                x:{
-                  ...prevState.x,gender:'male',id:this.state.c++,box:'market'
-                },
-                
-                 }))} }
+                onPress={() => this.updatemobject() }
                 color='#7189FF'
                  />
                 <Text  style={{color:'grey'}}>Male</Text>
@@ -420,15 +429,7 @@ this.sfa=arry4;
                 <RadioButton
                  value="second"
                 status={checked === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => { this.setState(prevState =>({ checked: 'second' ,bool:false,
-                x:{
-                  ...prevState.x,
-                  gender:'female',
-                  id:this.state.c++,
-                  box:'market'
-                },
-               
-             }) )}}
+                onPress={() => this.updatefobject()}
                 color='#7189FF'
                  />
                 <Text  style={{color:'grey'}}>Female</Text>
@@ -437,7 +438,8 @@ this.sfa=arry4;
 
                 <TouchableOpacity
                   onPress={(e) => {
-                 this.state.x.value !== '' && this.state.x.gender !=='' ? (this.handleSubmit()) : (Alert.alert('Any one field is missing'))
+                 this.ob.value !== '' && this.ob.gender !=='' ? (this.handleSubmit()
+                  ) : (Alert.alert('Any one field is missing'))
                   }}>
                   <View style={{ width: 250, height: 50, backgroundColor: '#7189FF', flexDirection: 'column', borderRadius: 10, marginTop: 80, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white' }}>Add</Text>
