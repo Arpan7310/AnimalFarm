@@ -8,6 +8,7 @@ import { AppState } from 'react-native';
 import Card from './Card'
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
+
 class Addmice extends Component {
 
 mma=[];
@@ -26,7 +27,10 @@ ob={
   box:'',
   gender:''
 };
-
+check={
+  c1:'',
+  c2:''
+};
 
 constructor(props) {
     super(props);
@@ -63,43 +67,111 @@ constructor(props) {
 
  onSuccess =(e) =>{
 
-if(this.state.type=='mm')
-this.mmqr={data:JSON.parse(e.data),type:this.state.type}
-if(this.state.type=='mf')
-this.mfqr={data:JSON.parse(e.data),type:this.state.type}
-if(this.state.type=='sm')
-this.smqr={data:JSON.parse(e.data),type:this.state.type}
-if(this.state.type=='sf')
-this.sfqr={data:JSON.parse(e.data),type:this.state.type}
-
-let a=JSON.parse(e.data).id
-
-
-
+  let body=JSON.parse(e.data)
+  Axios.post(url +'verifyContainer',{batchId:this.props.navigation.getParam('id'),qr:body,colonyId:this.props.navigation.getParam('colonyId'),boxType:this.state.type}).then((res)=>{
+    if( res.data.isValid ==true){
+      if(body.id.charAt()=='M'){
+      if(  this.state.type == 'mmboxId'){
+        if(this.state.mmt == 'Click to scan market male'){
+        if( body.id !== ( this.state.mft))
+         this.common(body)
+        }
+          else if( body.id !== (this.state.mft))
+          this.common(body)
+         else
+         Alert.alert('container used')
+    }
+    else if (  this.state.type == 'mfboxId'){
+      if(this.state.mft == ('Click to scan market female')){
+        if(body.id !== (this.state.mmt))
+       this.common(body)
+     }
+     else if( body.id !== (this.state.mmt))
+     this.common(body)
+         else
+         Alert.alert('container used')
+    }
   
-  if(this.state.type=='mm')
+  }
+ else  if(body.id.charAt()=='S'){
+    if(  this.state.type == 'smboxId'){
+      if(this.state.mmt == 'Click to scan selection male'){
+      if( body.id !== ( this.state.sft))
+       this.common(body)
+      }
+        else if( body.id !== (this.state.sft))
+        this.common(body)
+       else{
+       Alert.alert('container used')
+       this.setState({
+         qr:false
+       })
+       }
+  }
+  else if (  this.state.type == 'sfboxId'){
+    if(this.state.mft == ('Click to scan selection female')){
+      if(body.id !== (this.state.smt))
+     this.common(body)
+   }
+   else if( body.id !== (this.state.smt))
+   this.common(body)
+       else{
+       Alert.alert('container used')
+       this.setState({
+         qr:false
+       })
+      }
+  }
+
+}
+
+
+  }
+  else{
+  Alert.alert('wrong container type')
   this.setState({
-    qr:false,
-    mmt:a
+    qr:false
   })
-  if(this.state.type=='mf')
-  this.setState({
-    qr:false,
-    mft:a
-  })
-  if(this.state.type=='sm')
-  this.setState({
-    qr:false,
-    smt:a
-  })
-  if(this.state.type=='sf')
-  this.setState({
-    qr:false,
-    sft:a
+  }
+  }).catch(err =>{
+    Alert.alert('',JSON.stringify(err.message))
   })
 
-  
- }
+  }
+
+  common (body){
+    let a=body.id
+    if(this.state.type=='mmboxId')
+    this.mmqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    if(this.state.type=='mfboxId')
+    this.mfqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    if(this.state.type=='smboxId')
+    this.smqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    if(this.state.type=='sfboxId')
+    this.sfqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    
+    if(this.state.type=='mmboxId')
+      this.setState({
+        qr:false,
+        mmt:a
+      })
+      if(this.state.type=='mfboxId')
+      this.setState({
+        qr:false,
+        mft:a
+      })
+      if(this.state.type=='smboxId')
+      this.setState({
+        qr:false,
+        smt:a
+      })
+      if(this.state.type=='sfboxId')
+      this.setState({
+        qr:false,
+        sft:a
+      })
+
+  }
 
 
   setModalVisible(visible) {
@@ -118,8 +190,7 @@ this.ob.id=this.state.c++;
   arry.push(this.ob)
   this.setState({
     array:arry
-   
-  })
+    })
   this.ob={
     id:'',
     value:'',
@@ -295,7 +366,7 @@ this.x=true;
     })
   this.props.navigation.pop();
    
-  Alert.alert(JSON.stringify(body.weights))
+  Alert.alert('',JSON.stringify(body))
    }
    else{
      
@@ -566,19 +637,19 @@ updatemobject (){
 <View style={{flex:1,backgroundColor:'white'}}>
 {this.state.mm? (<TouchableOpacity   onPress={()=>this.setState({
   qr:true,
-  type:'mm'})}>
+  type:'mmboxId'})}>
   <Card text={this.state.mmt}  /></TouchableOpacity>):(<Text></Text>)}
     {this.state.mf? (<TouchableOpacity
       onPress={()=>this.setState({
   qr:true,
-  type:'mf'})}
+  type:'mfboxId'})}
     
     >
   <Card text={this.state.mft} /></TouchableOpacity>):(<Text></Text>)}
     {this.state.sm? (<TouchableOpacity
       onPress={()=>this.setState({
   qr:true,
-  type:'sm'})}
+  type:'smboxId'})}
     
     
     >
@@ -588,7 +659,7 @@ updatemobject (){
     
       onPress={()=>this.setState({
   qr:true,
-  type:'sf'})}
+  type:'sfboxId'})}
     
     
     >
