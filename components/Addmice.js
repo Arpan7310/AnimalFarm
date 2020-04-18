@@ -15,10 +15,10 @@ mma=[];
 sma=[];
 mfa=[];
 sfa=[];
-mmqr=null;
-mfqr=null;
-smqr=null;
-sfqr=null;
+mmqr={};
+mfqr={};
+smqr={};
+sfqr={};
 x=false;
 c=0;
 ob={
@@ -27,10 +27,7 @@ ob={
   box:'',
   gender:''
 };
-check={
-  c1:'',
-  c2:''
-};
+
 
 constructor(props) {
     super(props);
@@ -142,13 +139,13 @@ constructor(props) {
   common (body){
     let a=body.id
     if(this.state.type=='mmboxId')
-    this.mmqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    this.mmqr={id:body.id,type:this.state.type}
     if(this.state.type=='mfboxId')
-    this.mfqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    this.mfqr={id:body.id,type:this.state.type}
     if(this.state.type=='smboxId')
-    this.smqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    this.smqr={id:body.id,type:this.state.type}
     if(this.state.type=='sfboxId')
-    this.sfqr={data:body,type:this.state.type,batchId:this.props.navigation.getParam('id')}
+    this.sfqr={id:body.id,type:this.state.type}
     
     if(this.state.type=='mmboxId')
       this.setState({
@@ -294,38 +291,31 @@ this.setState({
 
 }
  async uploadData() {
-let  mmd={
-  mmqr:this.mmqr,
-   mma:this.mma
-  }
-  let  mfd={
-    mfqr:this.mfqr,
-     mfa:this.mfa
-    }
-    let  smd={
-      smqr:this.smqr,
-       sma:this.sma
-      }
-      let  sfd={
-        sfqr:this.sfqr,
-         sfa:this.sfa
-        }
-      
-  
 
+  this.state.array.map(item=>{
+    delete item.id
+    })
+  
+  this.mmqr.weights=this.mma
+  this.mfqr.weights=this.mfa
+  this.smqr.weights=this.sma
+  this.sfqr.weights=this.sfa
   let body={}
   let res={}
   let a=0;
   try {
-    if (this.mmqr!==null)
-    body.mmd=mmd
-    if (this.mfqr!==null)
-    body.mfd=mfd
-    if (this.smqr!==null)
-    body.smd=smd
-    if (this.sfqr!==null)
-    body.sfd=sfd
-body.weights=this.state.array
+    body.batchId=this.props.navigation.getParam('id')
+
+ if (this.mmqr.weights.length !== 0)
+    body.mm=this.mmqr
+    if (this.mfqr.weights.length !== 0)
+    body.mf=this.mfqr
+    if (this.smqr.weights.length !== 0)
+    body.sm=this.smqr
+    if (this.sfqr.weights.length !== 0)
+    body.sf=this.sfqr
+    body.weights=this.state.array
+
 
 
 if(this.state.mm){
@@ -365,14 +355,11 @@ this.x=true;
       modal:false
     })
   this.props.navigation.pop();
-   
   Alert.alert('',JSON.stringify(body))
    }
    else{
-     
- Alert.alert('Scan all containers')
-     
-   }
+      Alert.alert('Scan all containers')
+     }
   } catch(err) {
     Alert.alert('Something went wrong', JSON.stringify(err.message));
   }
@@ -381,8 +368,7 @@ this.x=true;
 
 seperateArray (){
   let arry1=[], arry2=[], arry3=[], arry4 =[];
-this.state.array.map(item=>{
-
+  this.state.array.map(item=>{
   if(item.gender=='male' && item.box=='market')
    arry1.push(item)
    if(item.gender=='male' && item.box=='selection')
@@ -391,8 +377,8 @@ this.state.array.map(item=>{
    arry3.push(item)
    if(item.gender=='female' && item.box=='selection')
    arry4.push(item)
-
 })
+
 arry1.sort((a,b)=> a.value < b.value);
 arry2.sort((a,b)=> a.value < b.value);
 arry3.sort((a,b)=> a.value < b.value);
@@ -402,36 +388,29 @@ this.mfa=arry3;
 this.sma=arry2;
 this.sfa=arry4;
 
+
+
+
 }
 
 
 updatefobject (){
-  this.setState({ checked: 'second' 
-             
-               
-})
+  this.setState({ checked: 'second' })
   this.ob.gender='female',this.ob.box='market'
 }
 updatemobject (){
-  this.setState ( { checked: 'first' 
-                
-             
-               
-                
-})
+  this.setState ( { checked: 'first' })
   this.ob.gender='male',this.ob.box='market'
 }
 
 
 
-  render() {
-    const { checked } = this.state; 
-
-
-    
+render() {
+   
+  const { checked } = this.state; 
     return (
-     
-        <View>
+    
+       <View>
           <TouchableOpacity onPress={() =>
             this.setModalVisible(true)}
 
@@ -643,8 +622,8 @@ updatemobject (){
       onPress={()=>this.setState({
   qr:true,
   type:'mfboxId'})}
-    
     >
+    
   <Card text={this.state.mft} /></TouchableOpacity>):(<Text></Text>)}
     {this.state.sm? (<TouchableOpacity
       onPress={()=>this.setState({
