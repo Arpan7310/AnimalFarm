@@ -51,10 +51,7 @@ constructor(props) {
        smt:'Click to scan selection male',
        sft:'Click to scan selection female',
        type:'',
-       
-      
-
-    }
+        }
   }
 
 
@@ -477,7 +474,7 @@ render() {
                 <Text  style={{color:'grey'}}>Male</Text>
 
                 <RadioButton
-                 value="second"
+                value="second"
                 status={checked === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => this.updatefobject()}
                 color='#7189FF'
@@ -500,18 +497,14 @@ render() {
           </Modal>
 
       
-          <ScrollView style={{marginBottom:70,marginTop:180}}>
-           <Text style={{fontSize:20,color:'#7189FF',marginLeft:100}}>List of Male Species</Text>
-        
+       <ScrollView style={{marginBottom:70,marginTop:180}}>
+        <Text style={{fontSize:20,color:'#7189FF',marginLeft:100}}>List of Male Species</Text>
          {this.state.array.sort((a,b)=> a.value < b.value).map((item)=>{
         if(item.gender=='male')
         return(
-          
           <View style={{flexDirection:'row', alignItems:'center',borderWidth:0.5,borderRadius:15,margin:10}}>
-            <Image source={require('./assets/mice.png')} style={{marginRight:10}} /> 
-
-
-            <Picker
+          <Image source={require('./assets/mice.png')} style={{marginRight:10}} /> 
+             <Picker
                     selectedValue={item.box}
                     style={{ height: 50, width: 150, borderRadius: 10, borderWidth: 1.2 }}
                     mode={"dialog"}
