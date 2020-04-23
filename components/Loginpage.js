@@ -10,11 +10,9 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 class Loginpage extends Component {
 
 
+   constructor(){
 
-
-    constructor(){
-
-     super()
+     super();
    
       this.state={
      

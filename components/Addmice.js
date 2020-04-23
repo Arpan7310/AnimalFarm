@@ -38,7 +38,6 @@ constructor(props) {
        array:[],
        y:null,
        c:0,
-       
        language:'',
        sm:false,
        mm:false,
@@ -52,9 +51,7 @@ constructor(props) {
        sft:'Click to scan selection female',
        type:'',
        
-      
-
-    }
+      }
   }
 
 

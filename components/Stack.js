@@ -30,7 +30,10 @@ const AppNavigator = createStackNavigator(
   },
   
  
-   BreederPage:BreederPage,
+   BreederPage:{
+
+      screen:BreederPage,
+     },
    ReportBirth:ReportBirth,
    ReportDeath:ReportDeath,
    Store:Store,
