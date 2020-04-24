@@ -19,27 +19,23 @@ import Selector from './Selector'
 import CreateColony from './CreateColony'
 import AddDame from './AddDame'
  import Temporary from './Temporary'
-
+import {AppRegistry} from 'react'
 const AppNavigator = createStackNavigator(
     {
 
      
   Dashboard: {
      screen:Homepage,
-    
-  },
-  
- 
-   BreederPage:{
-
-      screen:BreederPage,
      },
+  
+   Card:Card,
+   BreederPage:BreederPage,
    ReportBirth:ReportBirth,
    ReportDeath:ReportDeath,
    Store:Store,
    Selectbreed:Selectbreed,
    Filter:Filter,
-   Card:Card,
+  
    Market:Market,
    WeaningReport:WeaningReport,
    Qrcode: Qrcode,

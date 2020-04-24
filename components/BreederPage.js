@@ -11,7 +11,6 @@ response = {
   neonates: []
 };
 
-
 constructor(props){
   super(props)
   this.state={
@@ -39,30 +38,33 @@ constructor(props){
   })  
   }
 
+Card (text,route){
 
+  return(
+  <TouchableOpacity onPress={()=>this.props.navigation.push(route)}>
+ <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
+  <Text style={{color:'grey',fontSize:24,padding:30}}>{text}</Text>
+ </View>
+ </TouchableOpacity>
+  )
+
+}
    render(){
        return(
     <View style={{flexDirection:'column',alignItems:'center'}}>
     <View style={{width:Dimensions.get('window').width-20,height:150,backgroundColor:'#7189FF',
     flexDirection:'column',borderRadius:10,margin:15,justifyContent:'center',alignItems:'center',
     position:'absolute',elevation:1}}>
-    <Text style={{color:'white',fontSize:24}}>{ this.state.x.cName}</Text>
+    <Text style={{color:'white',fontSize:24}}>{this.state.x.cName}</Text>
     <Text style={{color:'white',fontSize:24}}>Breed:{this.state.x.breed}</Text>
      </View>
    
    <ScrollView style={{marginTop:180}}>
-   <TouchableOpacity onPress={()=>this.props.navigation.push('ReportDeath', this.state.x.colonyId)} >
-   <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
-   <Text style={{color:'grey',fontSize:24,padding:30}} >Report Death</Text>
-   </View>
-   </TouchableOpacity>
   
- <TouchableOpacity onPress={()=>this.props.navigation.push('ReportBirth',{'colonyId': this.state.x.colonyId, 'breederId': this.state.x['_id'],'breedertype':this.state.btype,'cName':this.state.x.cName})} >
- <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
-   <Text style={{color:'grey',fontSize:24,padding:30}} >Report Birth</Text>
-   </View>
- </TouchableOpacity>
-  {this.state.y.map((x)=>{
+   {this.Card('ReportDeath','ReportDeath')}
+   {this.Card('ReportBirth','ReportBirth')}
+
+   {this.state.y.map((x)=>{
      return(
       <TouchableOpacity onPress={() =>
       this.props.navigation.push('Addmice',{'id': x.batchId,'colonyId': this.state.x.colonyId,'breederId':this.state.x['_id']})
@@ -72,7 +74,7 @@ constructor(props){
     </View>
     </TouchableOpacity>
    
-     )
+     )   
    })}
   </ScrollView>
 
