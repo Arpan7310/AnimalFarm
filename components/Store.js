@@ -59,7 +59,7 @@ try{
     render(){
         return(
        <View style={{flex:1}}>
-        <Text>{this.state.email} </Text>
+        
        <PINCode 
              finishProcess={()=>this.removeData()}
            
