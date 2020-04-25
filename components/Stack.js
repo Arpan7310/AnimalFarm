@@ -24,9 +24,7 @@ const AppNavigator = createStackNavigator(
     {
 
      
-  Dashboard: {
-     screen:Homepage,
-     },
+  Dashboard: Homepage,
   
    Card:Card,
    BreederPage:BreederPage,

@@ -1,11 +1,17 @@
 import  React, {Component} from 'react'
-import {View,Text,TextInput,Dimensions,Button,StyleSheet,Modal,ActivityIndicator,TouchableOpacity,Image, TouchableHighlightComponent} from 'react-native'
+import {View,Text,TextInput,Dimensions,StyleSheet,Modal,ActivityIndicator,TouchableOpacity,Image, TouchableHighlightComponent,AppState} from 'react-native'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import PINCode from '@haskkor/react-native-pincode'
 import Axios from 'axios'
 import url from './Url';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import SplashScreen from 'react-native-splash-screen'
+import { Button,Card } from 'react-native-paper';
+import { color } from 'react-native-reanimated';
+
+
+
 
 class Loginpage extends Component {
 
@@ -22,31 +28,14 @@ class Loginpage extends Component {
             pin:'',
             bool:false,
             login:false,
+            x:''
             
             
             
         }
     }
 
-
-    async  componentWillMount (){
-  
-
-    try{
-        if (await AsyncStorage.getItem('mykey')!==null){
-      
-       
-         this.props.navigation.navigate('Pincode')
-        }
-           
-       }
-         catch(err){
-             
-         }
-
-
-     
-}
+ 
 
 async  handleLogin  ()  {
 let data ={email:this.state.email.trim(),password:this.state.password}
@@ -61,8 +50,9 @@ if(data.email !== '' && data.password !== ''){
   const res= await  Axios.post(url +'login',data);
  
   if(res.data.message=='login succesful'){
-   await AsyncStorage.setItem('mykey',res.data.data.pin)
+  
    await AsyncStorage.setItem('email',res.data.data.email)
+   await AsyncStorage.setItem('pin',res.data.data.pin)
    this.setState({
 
     login:false
@@ -152,14 +142,15 @@ this.setState({
   render(){
 
     return(
-      <View style={{flex:1,backgroundColor:'#def0fc'}}>
+      
+      <View  style={{flex:1,backgroundColor:'#def0fc'}}>
+   
            <View style={{paddingBottom:200,alignItems:'center',paddingTop:30}}>
            <Text style={{fontSize:24,color:'#7189FF',}}>Welcome to Animal Lab</Text>
-           
            </View>
-          
-        
-       <View style={{justifyContent:'center',alignItems:'center'}}>
+         
+         
+          <View style={{justifyContent:'center',alignItems:'center'}}>
         <TextInput  style={{width:Dimensions.get('window').width-40,backgroundColor:'white',margin:10,elevation:20}} placeholder="Enter email" onChangeText ={ (e)=> 
         this.setState({
             email:e
@@ -179,26 +170,17 @@ this.setState({
              <View style={{marginRight:10}}>
                <View style={{flexDirection:'row'}} >
                <ActivityIndicator size="large" color="#7189FF"  animating={this.state.login}/>
-               <TouchableOpacity onPress={() =>this.handleLogin()}>
-                 <View style={{width:90,height:40,backgroundColor:'#7189FF',alignItems:'center',justifyContent:'center'}}>
-                   <Text style={{color:'white'}}>Login</Text>
-                 </View>
-               </TouchableOpacity>
+               <Button  mode='contained' color='#7189FF'  labelStyle={{color:'white'}} onPress={()=>this.handleLogin()} >Login</Button>
              
                </View>
             
      </View>
      
          <View style={{marginLeft:10,marginRight:34}}>
-         <TouchableOpacity onPress={() =>this.setState({
+        <Button mode='contained'  color='#7189FF'  labelStyle={{color:'white'}} onPress={() =>this.setState({
              signup:true,
              email:'',  
-             password:''})} >
-             <View style={{width:90,height:40,backgroundColor:'#7189FF',alignItems:'center',justifyContent:'center'}}>
-                   <Text style={{color:'white'}}>Signup</Text>
-                 </View>
-                 
-             </TouchableOpacity>
+             password:''})}>Signup</Button>
          </View>
          
      </View>
@@ -208,6 +190,7 @@ this.setState({
      <Text style={{fontSize:20,color:'#7189FF'}}>Login for existing user/</Text>
      
      <Text style={{fontSize:20,color:'#7189FF'}}>Signup for new user</Text>
+     <Text>{this.state.x}</Text>
      </View>
      </View>
              
@@ -250,16 +233,18 @@ this.setState({
                     })
                     } />
                     <ActivityIndicator size="large" color="#7189FF"  animating={this.state.bool}/>
-                    <TouchableOpacity
-                    onPress={() =>this.handleSignup()}>
-                    <View style={{width:90,height:40,backgroundColor:'#7189FF',alignItems:'center',justifyContent:'center'}}>
-                   <Text style={{color:'white'}}>Signup</Text>
-                 </View> 
-                    </TouchableOpacity>
+                    <Button  mode='contained' color='#7189FF'  
+                    labelStyle={{color:'white'}} 
+                    onPress={()=>this.handleSignup()} 
+                    >
+                    Signup
+                    </Button>
               
                    </View>
                 </Modal>
 
+
+   
 
       </View>
         )

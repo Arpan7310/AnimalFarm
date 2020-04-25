@@ -41,9 +41,9 @@ constructor(props){
 Card (text,route){
 
   return(
-  <TouchableOpacity onPress={()=>this.props.navigation.push(route)}>
+ <TouchableOpacity onPress={()=>this.props.navigation.push(route)}>
  <View style={{width:Dimensions.get('window').width-20,height:100,borderRadius:20,alignItems:'center',margin:15,backgroundColor:'white',borderColor:'grey',borderWidth:0.2}}>
-  <Text style={{color:'grey',fontSize:24,padding:30}}>{text}</Text>
+ <Text style={{color:'grey',fontSize:24,padding:30}}>{text}</Text>
  </View>
  </TouchableOpacity>
   )

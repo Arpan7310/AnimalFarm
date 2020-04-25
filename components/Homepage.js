@@ -11,9 +11,9 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight,
   Alert,
-  AsyncStorage
+  
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage'
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import BreederPage from './BreederPage';
 import Axios from 'axios'
@@ -56,17 +56,12 @@ class Homepage extends Component {
 
   async Logout (){
 
-
-    await AsyncStorage.removeItem('mykey')
-   
-  }
-
-
-
-
-  card (text,route) {
-  if(text=='Logout')
-  this.Logout();
+    await AsyncStorage.removeItem('pin');
+    this.props.navigation.navigate('Loginpage')
+  
+   }
+ card (text,route) {
+  
 return(
 <TouchableOpacity onPress={()=>this.props.navigation.navigate(route)}>
 <View
@@ -149,7 +144,24 @@ onPress={() => {
          {this.card('Reset Pin','Store') }
          {this.card('Create Colony','CreateColony') }
          {this.card('Temporary','Temporary') }
-         {this.card('Logout','Loginpage')}
+         <TouchableOpacity onPress={()=>this.Logout()}>
+    <View
+            style={{
+              width: Dimensions.get('window').width - 20,
+              height: 100,
+              borderRadius: 20,
+              alignItems: 'center',
+              margin: 15,
+          
+              backgroundColor: 'white',
+              borderColor: 'grey',
+              borderWidth: 0.2,
+            }}>
+            <Text style={{color: 'grey', fontSize: 24, padding: 30}}>
+              Logout
+            </Text>
+          </View>
+          </TouchableOpacity>
      </ScrollView>
     );
   }
