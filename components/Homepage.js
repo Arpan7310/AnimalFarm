@@ -11,7 +11,8 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight,
   Alert,
-  AsyncStorage
+  AsyncStorage,
+  ToastAndroid
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -137,7 +138,10 @@ class Homepage extends Component {
             </Text>
           </View>
           <TouchableNativeFeedback
-            onPress={() => this.props.navigation.push('Selectbreed')}>
+            onPress={() => {
+              this.props.navigation.push('AddMiceNew');
+            }}
+            >
             <View
               style={{
                 width: Dimensions.get('window').width - 20,

@@ -19,6 +19,7 @@ import Selector from './Selector'
 import CreateColony from './CreateColony'
 import AddDame from './AddDame'
  import Temporary from './Temporary'
+import AddMiceNew from './AddMiceNew';
 
 const AppNavigator = createStackNavigator(
     {
@@ -47,7 +48,7 @@ const AppNavigator = createStackNavigator(
    CreateColony:CreateColony,
    AddDame:AddDame,
    Temporary:Temporary,
-  
+   AddMiceNew: AddMiceNew
   
   
 },{
