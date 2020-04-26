@@ -15,9 +15,7 @@ class MarketDeath extends Component{
     render(){
         return(
      <View style={{flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-    
-      <View style={{width:Dimensions.get('window').width-20,height:150,backgroundColor:'#7189FF',flexDirection:'column',borderRadius:10,margin:15,justifyContent:'center',alignItems:'center'}}>
-    
+    <View style={{width:Dimensions.get('window').width-20,height:150,backgroundColor:'#7189FF',flexDirection:'column',borderRadius:10,margin:15,justifyContent:'center',alignItems:'center'}}>
     <Text style={{color:'white',fontSize:24}}>Colony 3</Text>
     <Text style={{color:'white',fontSize:24}}>Type:Harem</Text>
     <Text style={{color:'white',fontSize:24}}>Generation:F1</Text>

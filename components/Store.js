@@ -11,10 +11,11 @@ class Store extends Component{
    componentWillMount(){
 
    this.props.navigation.addListener(  'willFocus' ,  async  e =>{
-
+   
     try{
     this.setState({
-      email:await AsyncStorage.getItem('email')
+      email:await AsyncStorage.getItem('email'),
+      x:await AsyncStorage.getItem('pin')
     })
    }
 
@@ -32,7 +33,8 @@ Alert.alert(err)
     super()
     this.state={
       rpin:'',
-      email:''
+      email:'',
+      x:''
     }
 
   }
@@ -46,7 +48,7 @@ try{
        const res =   Axios.post(url + 'resetpin' ,data)
        
        
-       await AsyncStorage.setItem('mykey',this.state.rpin);
+       await AsyncStorage.setItem('pin',this.state.rpin);
        Alert.alert('Pin has been reset')
        this.props.navigation.pop()
         } catch (err) {

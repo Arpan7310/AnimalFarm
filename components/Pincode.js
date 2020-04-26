@@ -21,11 +21,11 @@ class Pincode extends Component{
 
 
  async  componentWillMount () {
-
+ let f= await AsyncStorage.getItem('pin')
         
       try{
         this.setState({
-          rpin:await AsyncStorage.getItem('mykey')
+          rpin:f
       })
              
          }

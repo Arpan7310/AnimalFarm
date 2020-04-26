@@ -38,7 +38,6 @@ constructor(props) {
        array:[],
        y:null,
        c:0,
-       
        language:'',
        sm:false,
        mm:false,
@@ -51,7 +50,8 @@ constructor(props) {
        smt:'Click to scan selection male',
        sft:'Click to scan selection female',
        type:'',
-        }
+       
+      }
   }
 
 
@@ -119,10 +119,9 @@ constructor(props) {
 
 }
 
-
-  }
+ }
   else{
-  Alert.alert('wrong container type')
+  Alert.alert('wrong container type',JSON.stringify(res.data.isValid))
   this.setState({
     qr:false
   })
@@ -498,7 +497,7 @@ render() {
 
       
        <ScrollView style={{marginBottom:70,marginTop:180}}>
-        <Text style={{fontSize:20,color:'#7189FF'}}>List of Male </Text>
+        <Text style={{fontSize:20,color:'#7189FF',marginLeft:100}}>List of Male Species</Text>
          {this.state.array.sort((a,b)=> a.value < b.value).map((item)=>{
         if(item.gender=='male')
         return(
@@ -540,7 +539,7 @@ render() {
 
 
          })}
-         <Text style={{fontSize:20,color:'#7189FF'}}>List of Female </Text>
+         <Text style={{fontSize:20,color:'#7189FF',marginLeft:100}}>List of Female Species</Text>
          {this.state.array.sort((a,b)=> a.value < b.value).map((item)=>{
         if(item.gender=='female')
         return(
