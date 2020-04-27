@@ -20,7 +20,7 @@ import CreateColony from './CreateColony'
 import AddDame from './AddDame'
  import Temporary from './Temporary'
 import AddMiceNew from './AddMiceNew';
-
+import Colonydetails from './Colonydetails'
 import {AppRegistry} from 'react'
 const AppNavigator = createStackNavigator(
     {
@@ -46,7 +46,8 @@ const AppNavigator = createStackNavigator(
    CreateColony:CreateColony,
    AddDame:AddDame,
    Temporary:Temporary,
-   AddMiceNew: AddMiceNew
+   AddMiceNew: AddMiceNew,
+   Colonydetails:Colonydetails
   
   
 },{

@@ -11,7 +11,7 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight,
   Alert,
-  AsyncStorage,
+ 
   ToastAndroid
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
@@ -139,9 +139,9 @@ onPress={() => {
     return (
       <ScrollView>
          {this.Scanner('Scan Container')}
-         {this.card('View Records') }
+         {this.card('View Records','Colonydetails') }
          {this.card('Tasks for Today') }
-         {this.card('Search For Sale','Selectbreed') }
+         {this.card('Search For Sale','AddMiceNew') }
          {this.card('Reset Pin','Store') }
          {this.card('Create Colony','CreateColony') }
          {this.card('Temporary','Temporary') }
